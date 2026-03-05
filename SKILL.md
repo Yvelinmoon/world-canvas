@@ -145,15 +145,13 @@ THEME = {
 当用户触发本技能时，你**必须**按以下顺序执行：
 
 1. 先读取世界设定文件，推断主题（见上方规则）
-2. 读取 `scripts/build_canvas.py`（位于本 skill 目录），将推断好的 `THEME` 字典替换脚本顶部的默认 THEME
-3. 将修改后的脚本写入用户当前工作目录并运行：
+2. 读取 `scripts/build_canvas.py`（位于本 skill 目录），将脚本顶部的默认 `THEME` 字典**替换**为推断好的定制主题
+3. 将修改后的脚本写入 `/tmp/build_canvas_themed.py`，然后在用户的世界目录中运行：
 
 ```bash
-# skill 路径二选一（检测哪个存在）
-python ~/.claude/skills/world-canvas/scripts/build_canvas.py
-python ~/.config/opencode/skills/world-canvas/scripts/build_canvas.py
+python3 /tmp/build_canvas_themed.py
 ```
 
 脚本以 `os.getcwd()` 为扫描根目录，在该目录下输出 `World_Canvas_Board.html`。
 
-> 完整脚本见：`scripts/build_canvas.py`
+> 完整脚本模板见：`scripts/build_canvas.py`（顶部 THEME 字典为默认占位值，每次必须替换）
