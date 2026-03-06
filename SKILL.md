@@ -69,6 +69,26 @@ python3 /tmp/build_canvas_themed.py
 
 ---
 
+## Watch 模式（文件监听 + 自动刷新）
+
+如果用户希望新增档案后画布自动更新，在完成上述步骤后，告知用户运行以下命令：
+
+```bash
+python3 ~/.claude/skills/world-canvas/scripts/watch_canvas.py
+```
+
+**工作原理**：
+- 每 2 秒轮询世界目录，检测到 `.md` / 图片文件变化时自动重建 HTML
+- 在 `localhost:8765` 启动 HTTP 服务并自动打开浏览器
+- 通过 SSE（Server-Sent Events）向浏览器推送重建信号，页面自动刷新
+- 全程使用 Python 标准库，无需安装额外依赖
+
+**前提**：需要先通过 world-canvas skill 生成 `/tmp/build_canvas_themed.py`（即正常触发一次本技能）。
+
+`Ctrl+C` 停止监听。
+
+---
+
 ## 参考文档
 
 - [主题配置参考](./refs/theme-guide.md) - 世界类型映射表、THEME 字典字段说明、背景图案 CSS 对照表

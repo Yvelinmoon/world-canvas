@@ -326,6 +326,8 @@ window.zoom=d=>{{const cx=innerWidth/2,cy=innerHeight/2,xs=(cx-px)/scale,ys=(cy-
   scale=Math.min(Math.max(.1,scale+d),3.5);px=cx-xs*scale;py=cy-ys*scale;upd()}};
 window.resetView=()=>{{scale=.82;px=0;py=0;upd()}};
 upd();
+function _connectSSE(){{const es=new EventSource('/events');es.onmessage=()=>location.reload();es.onerror=()=>{{es.close();setTimeout(_connectSSE,3000)}};}}
+if(location.protocol!=='file:')_connectSSE();
 </script>
 </body>
 </html>"""
