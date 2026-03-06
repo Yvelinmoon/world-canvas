@@ -297,7 +297,7 @@ window.openModal=id=>{{
   const div=document.createElement('div');
   div.className='md';
   div.style.cssText='width:100%;max-width:860px;font-size:15px;line-height:1.88;padding-bottom:80px';
-  const mdContent=d.img?d.content.replace(/!\[.*?\]\([^)]+\)\n?/,''):d.content;
+  const mdContent=d.img?d.content.replace(/!\\[.*?\\]\\([^)]+\\)\\n?/,''):d.content;
   div.innerHTML=marked.parse(mdContent);
   div.querySelectorAll('img').forEach(i=>{{
     const s=i.getAttribute('src');
