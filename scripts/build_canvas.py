@@ -84,9 +84,15 @@ def scan_assets(root_dir):
                         if k in name or name in k:
                             img_src = v; break
                 if not img_src:
-                    m = re.search(r'!\[.*?\]\((https?://[^)]+)\)', content)
+                    m = re.search(r'!\[.*?\]\(([^)]+)\)', content)
                     if m:
-                        img_src = m.group(1)
+                        img_ref = m.group(1)
+                        if img_ref.startswith('http'):
+                            img_src = img_ref
+                        else:
+                            abs_img = os.path.normpath(os.path.join(os.path.dirname(fp), img_ref))
+                            if os.path.exists(abs_img):
+                                img_src = os.path.relpath(abs_img, root_dir).replace('\\', '/')
                 rel_path = os.path.relpath(fp, root_dir).replace('\\', '/')
                 cards.append({
                     "id": f"card_{len(cards)}", "type": "markdown",
